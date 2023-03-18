@@ -2,6 +2,7 @@ import "../assets/styles.scss";
 import axios from "axios";
 //import _get lodash
 const get = require("lodash.get");
+require("dotenv").config();
 
 //on page loading show the spinner
 document.onreadystatechange = function () {
