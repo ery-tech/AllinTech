@@ -41,9 +41,8 @@ typewriter
   .start();
 
 //declaring variables
-const newsStoriesUrl =
-  "https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty";
-const idsUrl = "https://hacker-news.firebaseio.com/v0/item/";
+const newsStoriesUrl = process.env.news_stories_key;
+const idsUrl = process.env.ids_key;
 
 let idsArr = [];
 let startArr = 0;
