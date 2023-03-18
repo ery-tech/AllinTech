@@ -41,8 +41,8 @@ typewriter
   .start();
 
 //declaring variables
-const newsStoriesUrl = process.env.news_stories_key;
-const idsUrl = process.env.ids_key;
+const newsStoriesUrl = process.env.NEWS_STORIES;
+const idsUrl = process.env.IDS_KEY;
 
 let idsArr = [];
 let startArr = 0;

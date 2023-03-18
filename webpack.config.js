@@ -1,7 +1,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const Dotenv = require("dotenv-webpack");
 module.exports = {
   entry: "./src/assets/index.js",
   output: {
@@ -74,5 +74,6 @@ module.exports = {
       favicon: "./src/assets/img/favicon.png",
       inject: "body",
     }),
+    new Dotenv(),
   ],
 };
