@@ -74,6 +74,8 @@ module.exports = {
       favicon: "./src/assets/img/favicon.png",
       inject: "body",
     }),
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true,
+    }),
   ],
 };
