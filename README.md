@@ -3,6 +3,7 @@
 
 <img alt="woman-programmer-img" width="130px" 
  src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjY4MGRiMTYwYzVlM2EwNDMyYzcxNWI2YTZiYWNkMjMzY2ZjMzgyZSZjdD1z/paTz7UZbPfTZFRYnnB/giphy.gif"/>
+
 </div>
 
 <h2> Description </h2>
@@ -19,5 +20,6 @@
  
   <h4>Deploy link:     </h4>
   <span> 
-  <img src="https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7  "
+  <img align="left" src="https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7  ">  <a href="ery-tech-all-in-tech.netlify.app">
+   
 </span>
