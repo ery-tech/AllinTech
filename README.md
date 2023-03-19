@@ -20,6 +20,6 @@
  
   <h4>Deploy link:     </h4>
   <span> 
-  <img align="left" src="https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7  ">  [link](https://ery-tech-all-in-tech.netlify.app/) 
+  <img align="left" src="https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7  ">  https://ery-tech-all-in-tech.netlify.app/
    
 </span>
