@@ -11,6 +11,9 @@ document.onreadystatechange = function () {
   } else {
     document.getElementById("loader").style.display = "none";
     document.querySelector("body").style.visibility = "visible";
+    //if DOM is complete call the main function and loadElements function
+    fetchUrl();
+    loadElements();
   }
 };
 
@@ -21,7 +24,6 @@ const elementEl = document.getElementById("typeText");
 const typewriter = new Typewriter(elementEl, {
   loop: true,
 });
-
 typewriter
   .typeString("Latest News")
   .pauseFor(2500)
@@ -40,30 +42,42 @@ typewriter
   .deleteAll()
   .start();
 
-//declaring variables
+//declaring environment variables
 const newsStoriesUrl = process.env.NEWS_STORIES;
 const idsUrl = process.env.IDS_KEY;
 
-let idsArr = [];
-let startArr = 0;
-let endArr = 10;
+//function to fetch ids array
 
-const div = document.getElementById("addNews");
-
-//function to fetch news array and ids
-
-async function getIdsNews() {
+async function fetchUrl() {
   try {
     let res = await axios.get(newsStoriesUrl);
 
     let arr = res.data;
     console.log(arr);
-    for (let i = startArr; i < endArr && i < arr.length; i++) {
-      // get the size of the inner array
-      idsArr = arr[i];
-      getNews();
-      console.log(idsArr);
+    getIds(arr);
+  } catch {
+    //handle 404
+    if (!res.ok) {
+      throw new Error(`An error occurred: ${res.status}`);
     }
+  }
+}
+//variables
+let idsArr = [];
+let startArr = 0;
+let endArr = 10;
+
+//function to get the size of the inner array (only ten news)
+async function getIds(arr) {
+  try {
+    for (let i = startArr; i < endArr && i < arr.length; i++) {
+      //the final array
+      idsArr = arr[i];
+
+      console.log(idsArr);
+      getNews(idsArr);
+    }
+    //conditional statements to get only 10 news each time
     if (endArr > arr.length) {
       startArr = 0;
       endArr = 10;
@@ -72,15 +86,16 @@ async function getIdsNews() {
       endArr += 10;
     }
   } catch {
+    //handle error
     err => {
       console.log(err);
     };
   }
 }
 
-//function to get specific properties and post them in cards
+//function to get specific properties (date,title,link)
 
-async function getNews() {
+async function getNews(idsArr) {
   try {
     let url = `${idsUrl + idsArr + ".json"}`;
     axios.get(url).then(res => {
@@ -90,24 +105,7 @@ async function getNews() {
 
       console.log(title, date, link);
 
-      //convert string to a date object
-      const fullDate = new Date(date * 1000);
-      const finalDate = fullDate.toLocaleDateString("en-GB");
-      console.log(finalDate);
-
-      if (link != undefined) {
-        div.innerHTML += `<div class="card mx-3 my-2" id="card">
-    <div class="card-body">
-      <h5 class="card-title">${title}</h5>
-     <p class="card-text">
-     <a href="${link}" target="_blank" id="linkTo" class="btn btn-primary ">Learn more</a> </p>
-
-    </div>
-    <div class="card-footer "> Last updated: ${finalDate} </div>
- </div> `;
-      } else {
-        return null;
-      }
+      displayNews(date, link, title);
     });
   } catch {
     err => {
@@ -116,74 +114,79 @@ async function getNews() {
   }
 }
 
-getIdsNews();
+//function to post news in cards
+async function displayNews(date, link, title) {
+  //convert string to date
+  const fullDate = new Date(date * 1000);
+  const finalDate = fullDate.toLocaleDateString("en-GB");
+  console.log(finalDate);
+  //get the div container
+  const div = document.getElementById("addNews");
+  //if there's no link don't show the news card otherwise post it
+  if (link != undefined) {
+    div.innerHTML += `<div class="card mx-3 my-2" id="card">
+<div class="card-body">
+<h5 class="card-title">${title}</h5>
+<p class="card-text">
+<a href="${link}" target="_blank" id="linkTo" class="btn btn-primary ">Learn more</a> </p>
 
-//load more news (button)
-const btn = document.getElementById("showMoreBtn");
-window.onscroll = function () {
-  loadMore(), scrollFunction(), displayFooter();
-};
-function loadMore() {
-  if (
-    document.body.scrollTop > 100 ||
-    document.documentElement.scrollTop > 100
-  ) {
-    btn.style.display = "block";
+</div>
+<div class="card-footer "> Last updated: ${finalDate} </div>
+</div> `;
   } else {
-    btn.style.display = "none";
+    return null;
   }
 }
-btn.onclick = function () {
-  getIdsNews(), spinnerOnload();
-};
 
-//add load more button's spinner
-let spinner = document.getElementById("spinner");
+//loadElements function to display three elements (load more button, to the top btn,footer )
+// Get the buttons:
+const btn = document.getElementById("showMoreBtn");
+const topButton = document.getElementById("topBtn");
+//loadElements function
+async function loadElements() {
+  setTimeout(() => {
+    btn.style.display = "block";
+    topButton.style.opacity = "1";
+    document.getElementById("footer").classList.remove("hidden-footer");
+  }, 2700);
+  //once the elements are displayed, call the functions that make them work
+  //1)
+  loadMore();
+  //2)
+  spinnerOnload();
+  //3)
+  topFunction();
+  //4)
+  showYear();
+}
 
+// 1) function on button click to show spinner and load more news
+function loadMore() {
+  btn.onclick = function () {
+    fetchUrl(), spinnerOnload();
+  };
+}
+
+// 2) function to add load more button's spinner
 function spinnerOnload() {
+  let spinner = document.getElementById("spinner");
   spinner.classList.remove("hidden");
   setTimeout(() => {
     spinner.classList.add("hidden");
   }, 2000);
 }
 
-//footer
-
-function displayFooter() {
-  if (
-    document.body.scrollTop > 200 ||
-    document.documentElement.scrollTop > 200
-  ) {
-    document.getElementById("footer").classList.remove("hidden-footer");
-  } else {
-    document.getElementById("footer").classList.add("hidden-footer");
-  }
+// 3) function for to the top button to help with page srolling
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  topButton.onclick = function () {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  };
 }
-const year = new Date().getFullYear();
+
+//4)add the full year to the footer
 function showYear() {
+  const year = new Date().getFullYear();
   document.getElementById("year").innerHTML = year;
 }
-showYear();
-
-//to the top button to help with page srolling
-// Get the button:
-let topButton = document.getElementById("topBtn");
-
-// When the user scrolls down 100px from the top of the document, show the button
-
-function scrollFunction() {
-  if (
-    document.body.scrollTop > 100 ||
-    document.documentElement.scrollTop > 100
-  ) {
-    topButton.style.opacity = "1";
-  } else {
-    topButton.style.opacity = "0";
-  }
-}
-
-// When the user clicks on the button, scroll to the top of the document
-topButton.onclick = function topFunction() {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-};

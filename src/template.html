@@ -53,20 +53,21 @@
         <h1 id="typeText"></h1>
 
         <div class="row" id="addNews"></div>
-
-        <button
-          type="button"
-          onclick="getIdsNews()"
-          id="showMoreBtn"
-          class="btn btn-primary"
-        >
-          Show more
-          <span
-            id="spinner"
-            class="spinner-border spinner-border-sm hidden"
-            role="status"
-          ></span>
-        </button>
+        <div class="showMoreContainer">
+          <button
+            type="button"
+            onclick="getIdsNews()"
+            id="showMoreBtn"
+            class="btn btn-primary"
+          >
+            Show more
+            <span
+              id="spinner"
+              class="spinner-border spinner-border-sm hidden"
+              role="status"
+            ></span>
+          </button>
+        </div>
       </div>
 
       <button onclick="topFunction()" id="topBtn" title="Go to top">
@@ -74,7 +75,7 @@
       </button>
     </main>
 
-    <footer>
+    <footer id="footerContainer">
       <div id="footer" class="hidden-footer">
         &copy; <span id="year"> </span>
         <span>

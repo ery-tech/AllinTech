@@ -3,8 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+html,
 body {
-  height: auto;
+  min-height: 100vh;
   background: rgb(34, 11, 250);
   background: radial-gradient(
     circle,
@@ -14,6 +15,7 @@ body {
   color: aliceblue;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 #typeText {
   font-size: 30px;
 }
@@ -112,15 +114,14 @@ body {
   display: none !important;
 }
 #footer {
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0rem;
+  left: 0rem;
+  right: 0rem;
   padding: 2rem;
   background: linear-gradient(150deg, #3cce96, #0828a9 100%);
   color: white !important;
-  font-weight: 500;
   display: flex;
+  font-weight: 500;
   justify-content: center;
   align-items: center;
   gap: 0.2rem;
@@ -128,20 +129,41 @@ body {
 #year {
   margin-right: 1rem;
 }
+#footerContainer {
+  z-index: 99;
+  top: 100vh;
+  bottom: 0rem;
+  left: 0rem;
+  right: 0rem;
+  width: 100%;
+  position: sticky;
+  background: linear-gradient(150deg, #3cce96, #0828a9 100%);
+}
+.showMoreContainer {
+  display: flex;
+  margin-bottom: auto;
+}
 
 @media only screen and (min-width: 300px) and (max-width: 374px) {
   #showMoreBtn {
     margin-bottom: 1rem;
-    margin-left: 3.2rem;
+    margin-left: 22%;
+    margin-right: 20%;
   }
+
   #topBtn {
-    bottom: 7.5rem;
-    right: 0.6rem;
+    bottom: 7.8rem;
+    right: 0.2rem;
     padding: 5px;
   }
   #typeText {
     font-size: 20px;
     padding-top: 2rem;
+    margin-left: 5%;
+    margin-right: 4%;
+  }
+  .row {
+    justify-content: center;
   }
   body {
     font-size: small;
@@ -154,7 +176,11 @@ body {
 @media only screen and (min-width: 375px) and (max-width: 430px) {
   #showMoreBtn {
     margin-bottom: 1.5rem;
-    margin-left: 4.5rem;
+    margin-left: 27%;
+    margin-right: 20%;
+  }
+  .row {
+    justify-content: center;
   }
   #topBtn {
     bottom: 7rem;
@@ -163,7 +189,10 @@ body {
   }
   #typeText {
     font-size: 20px;
+    margin-left: 4%;
+    margin-right: 4%;
   }
+
   body {
     font-size: small;
   }
@@ -175,25 +204,80 @@ body {
 @media only screen and (min-width: 431px) and (max-width: 767px) {
   #showMoreBtn {
     bottom: 1.5rem;
-    margin-left: 5rem;
+    margin-left: 30%;
+    margin-right: 20%;
   }
   #typeText {
     font-size: 24px;
+    margin-left: 4%;
+  }
+  .row {
+    justify-content: center;
   }
   #topBtn {
-    bottom: 8rem;
-    right: 1.5rem;
+    bottom: 9rem;
+    right: 1.2rem;
     padding: 10px;
   }
 }
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
+@media only screen and (min-width: 768px) and (max-width: 1000px) {
   #showMoreBtn {
     margin-top: 2rem;
     bottom: 1rem;
     margin-left: 38%;
   }
+  .row {
+    justify-content: center;
+  }
   #topBtn {
-    right: 0.8rem;
+    right: 1rem;
     bottom: 7.5rem;
+  }
+}
+@media only screen and (min-width: 1000px) and (max-width: 1100px) {
+  #topBtn {
+    right: 0.5rem;
+    bottom: 7.5rem;
+  }
+}
+@media only screen and (min-width: 1101px) and (max-width: 1440px) {
+  #topBtn {
+    margin-right: 0rem;
+    bottom: 9rem;
+  }
+
+  #showMoreBtn {
+    margin-top: 1rem;
+    bottom: 1rem;
+    margin-left: 42%;
+  }
+}
+@media only screen and (min-width: 1441px) and (max-width: 3000px) {
+  #showMoreBtn {
+    margin-top: 2rem;
+    margin-left: 43%;
+  }
+
+  #topBtn {
+    bottom: 14rem;
+  }
+  #footer {
+    padding: 4rem;
+  }
+}
+@media only screen and (min-width: 1520px) {
+  #topBtn {
+    margin-right: 3rem;
+    bottom: 15rem;
+  }
+
+  #footer {
+    padding: 4rem;
+  }
+}
+@media only screen and (min-width: 2000px) {
+  #topBtn {
+    margin-right: 7rem;
+    bottom: 16rem;
   }
 }
